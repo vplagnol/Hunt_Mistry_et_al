@@ -1,0 +1,25 @@
+##default parameters
+choice.phenos <- c('control', 'coeliac')
+code <- 'data/genotypes/PTPRK_full'
+
+source('scripts/association/intro_parse_data.R')
+
+
+
+###### merge with ichip
+good <- (summ$nalleles == 1) &  ! (summ$start %in% ichip$map$position)
+summ.restricted <- summ[ good, ]
+genotypes <- t(genotypes[good, dimnames(ichip$genotypes)[[1]] ])
+fluidigm <- new('SnpMatrix', .Data = genotypes + 1)
+
+combined.snpStats <- cbind(ichip$genotypes, fluidigm)
+
+
+
+####### now the phenotype data
+pheno.table <- read.table(pheno.files[1])
+pheno.values <- pheno.table$V2[ match(dimnames(combined)[[1]], table = pheno.table$V1) ] -1
+
+my.frame <- data.frame(pheno = pheno.values)
+row.names(my.frame) <- dimnames(genotypes.inter.ichip)[[1]]
+combined.snpStats <- combined.snpStats[ 

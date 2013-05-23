@@ -1,0 +1,2 @@
+load('data/genotypes/NCF2_full.RData')
+

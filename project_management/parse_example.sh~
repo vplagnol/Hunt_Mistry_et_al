@@ -1,0 +1,26 @@
+cp scripts/project_management/parse_vcf.pl temp/test.pl 
+chmod u+x temp/test.pl
+
+grep full support/target_regions.tab | while read chr start end code gene; do
+
+    script=cluster/submission/X${code}.sh
+    
+    echo "
+#!/bin/bash
+#$ -S /bin/bash
+#$ -o cluster/out
+#$ -e cluster/error
+#$ -cwd
+
+./temp/test.pl $chr $start $end data/genotypes/$code
+" > $script
+
+echo $script    
+#qsub -q blades $script
+#qsub -q sunfire $script
+
+sh $script
+
+done
+
+

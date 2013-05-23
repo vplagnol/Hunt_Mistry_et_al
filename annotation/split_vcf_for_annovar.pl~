@@ -1,0 +1,5 @@
+
+my $VCF = "temp/annovar/fluidigm50k_final15jan2013_noIFCbarcode__has_phenotype.indiv_4377sites_41911indiv.vcf";
+
+open (INP, " < temp/annovar/fluidigm50k_final15jan2013_noIFCbarcode__has_phenotype.indiv_4377sites_41911indiv.vcf")
+while (<>
