@@ -1,4 +1,0 @@
-
-
-
-for (d in c(20, 40, 60, 100, 150, 200, 250)) {message(d, ' ', sum(subset(data, V2 %in% as.character(d:(d+250)), 'V1', drop = TRUE))/sum(data$V1))}
